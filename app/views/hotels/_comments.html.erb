@@ -1,0 +1,19 @@
+<div id="comments">
+  <h4>Our users about <%= @hotel.name %></h4></br></br>
+<% @hotel.comments.last(5).reverse.each do |comment| %>
+
+
+<blockquote  >
+  <p><%= comment.comment_content %></p>
+  <small><%= comment.user.email %></br> User rated this hotel as <%= comment.user_rating_word(comment.user_rating) %></small>
+</blockquote>
+
+
+<% end %>
+</div>
+
+<%= javascript_tag do %>
+setInterval( function() {
+  $("#comments").load(location.href+" #comments>*", "");
+}, 5000);
+<% end %>

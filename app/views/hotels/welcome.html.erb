@@ -1,0 +1,57 @@
+
+
+<div id="slides">
+  <ul class="slides-container">
+    <% @top_five.each do |hotel| %>
+      <%  hotel.images.each do |photo| %>
+       <% unless photo.nil? %>
+
+            <li><%= image_tag photo.photo.url(:landing) %>
+              <div class="scrollable">
+              <div class="well " style="background-color: rgba(245, 245, 245, 0.5); height:55px">
+                <h3>Hotel Advisor is awesome service to describe and rate hotels.
+                  <%= link_to "Click", hotels_path %> to see more.</h3>
+              </div>
+              <div class="container well " style="text-align:center; background-color: rgba(245, 245, 245, 0.5); width:300px; height:auto; max-height:400px; float:left; margin-left:100px; margin-top:3%;">
+                <h1 ><%= hotel.name %></h1>
+                <div class="rating" style="width: 50%; margin: 0 auto; width: auto; " id="hotel_<%= hotel.id %>_star_rating">
+              </div></br>
+              <small><%= hotel.comments.count %> comments about <%= hotel.name %>;</small></br>
+              <small> Average mark: <%= hotel.average_rating %> (<%= hotel.average_user_rating_word(hotel.average_rating) %>)</small></br ></br>
+
+              <div id="comments">
+
+                <% hotel.comments.last(2).reverse.each do |comment| %>
+                <blockquote  >
+                  <%= comment.comment_content %>
+                  <small ><font color="#333333"> <%= comment.user.email %></br> User rated this hotel as <%= comment.user_rating_word(comment.user_rating) %></font></small>
+                </blockquote>
+              <% end %>
+              </div>
+                   <h6><%= link_to "And more", hotel_path(hotel.id) %></h6>
+            </div>
+          </div>
+            </li>
+        <% end %>
+      <% end %>
+
+
+
+    <% end %>
+  </ul>
+
+</div>
+
+<%= javascript_tag do %>
+jQuery(document).ready(function($) {
+
+<% @top_five.each do |hotel| %>
+$('#hotel_<%= hotel.id %>_star_rating').raty({ path:"<%= asset_path ""%>", readOnly: true, score: <%= hotel.star_rating %> });
+$('.rating img').addClass("preserve");
+
+$('#hotel_<%= hotel.id %>_user_rating').raty({ path:"<%= asset_path ""%>", readOnly: true, score: <%= hotel.average_rating %> });
+<% end %>
+$('#slides').superslides();
+});
+
+<% end %>

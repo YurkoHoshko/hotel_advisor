@@ -1,0 +1,41 @@
+
+
+
+<% @hotels.each do |hotel| %>
+<div class="well" style="text-align:center; float:left; margin-left:2px; padding:0px;  ">
+
+  <h2><i><%= hotel.name %></i></h2>
+  <small><i><%= hotel.address %></i></small>
+  <div style="width: 50%; margin: 0 auto;" id="hotel_<%= hotel.id %>_star_rating"></div></br>
+  <div id="Slider_for_<%=hotel.id %>">
+    <ul class="bjqs">
+    <% hotel.images.each do |photo| %>
+      <% unless photo.nil? %>
+
+        <li><%= image_tag photo.photo.url(:big) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+</div>
+<small><%= hotel.comments.count %> comments about <%= hotel.name %>;</small></br>
+  <small> Average mark: <%= hotel.average_rating %> (<%= hotel.average_user_rating_word(hotel.average_rating) %>)</small></br >
+  <%= link_to 'And more ...', hotel %>
+
+</div>
+<% end %>
+<br />
+
+
+<%= javascript_tag do %>
+jQuery(document).ready(function($) {
+<%@hotels.each do |hotel| %>
+
+$('#hotel_<%= hotel.id %>_star_rating').raty({ path:"assets", readOnly: true, score: <%= hotel.star_rating %> });
+    $('#Slider_for_<%=hotel.id%>').bjqs({
+
+        'responsive' : false
+    });
+    <% end %>
+});
+
+<% end %>

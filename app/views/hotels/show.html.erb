@@ -1,0 +1,71 @@
+
+<div style="float:left;text-align:center; margin:2px;" class="well"><h1><%= @hotel.name %></h1>
+
+<div style="width: 50%; margin: 0 auto;" id="hotel_<%= @hotel.id %>_star_rating"></div></br>
+  <div style="width: 50%; margin: 0 auto;" id="Slider_for_<%=@hotel.id %>">
+    <ul class="bjqs">
+    <% @hotel.images.each do |photo| %>
+      <% unless photo.nil? %>
+
+        <li><%= image_tag photo.photo.url(:big) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+</div>
+<div style="width: 40%; margin: 0 auto;" id="hotel_<%= @hotel.id %>_user_rating"><p>Users rated <%= @hotel.name %> as:</p></div></br>
+<p><%= @hotel.name  %> is situated in <%= @hotel.address %></p>
+</div>
+
+<div id="wrapper" style="float:left;word-wrap: break-word; width:390px">
+<div style=" margin:2px; padding:10px; " class="well" id="hotel-info">
+  <h4>Hotel info</h4>
+<dl class="dl-horizontal">
+  <dt><strong>Price (per day):</strong></dt>
+  <dd><%= @hotel.price %> grn.</dd>
+  </br>
+
+  <dt><strong>Breakfast included?:</strong></dt>
+  <% if @hotel.breakfast_included %>
+  <dd>Breakfast included</dd>
+  </br>
+  <% else %>
+  <dd>Breakfast not included</dd>
+  </br>
+
+  <% end %>
+
+  <dt><strong>Room description:</strong></dt>
+  <dd><%= @hotel.room_description %></dd>
+  </br>
+
+
+</div>
+
+
+
+<div style="margin:2px; " class="well">
+
+  <%= render :partial=>'comments' %>
+</div>
+</div>
+
+<div style="float:left; margin:2px; " class="well">
+<%= render :partial=>'comment_form' %>
+</div>
+
+<%= javascript_tag do %>
+jQuery(document).ready(function($) {
+$('#hotel_<%= @hotel.id %>_star_rating').raty({ path:"<%= asset_path ""%>", readOnly: true, score: <%= @hotel.star_rating %> });
+$('#hotel_<%= @hotel.id %>_user_rating').raty({ path:"<%= asset_path ""%>", readOnly: true, score: <%= @hotel.average_rating %> });
+
+$('#Slider_for_<%=@hotel.id%>').bjqs({
+
+        'responsive' : false
+    });
+
+});
+
+<% end %>
+
+
+

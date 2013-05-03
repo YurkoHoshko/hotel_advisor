@@ -1,0 +1,55 @@
+  <h4>Leave comment<h4>
+  </br>
+<div id="comment_notice", style="color:#62c462"></div>
+<div id="comment_form">
+
+<% if current_user %>
+
+  <%= form_for @comment , :action=>:create, :controller=>:comments do |f|%>
+
+    <%= f.hidden_field :user_id, :value=>current_user.id %>
+    <%= f.hidden_field :hotel_id, :value=>@hotel.id %>
+    <h5>How do u rate this hotel?</h5>
+    <%= f.select :user_rating, ([['Scary', 1], ['Bad', 2], ['Usual', 3], ['Good', 4], ['Awesome', 5]] ), :selected=>"3" %></br>
+    <h5>Few more words about hotel</h5>
+    <%= f.text_area :comment_content, :rows=>"5"%></br>
+    <%= f.label "Submit comment", :id=>"submit_comment", :class=>"btn btn-success", :style=>"align:center"  %></br>
+
+  <%end%>
+
+<%else%>
+
+  <h5>Only signed users can leave the comment</h5>
+
+<% end %>
+</div>
+
+<%= javascript_tag do %>
+  jQuery(function($) {
+      $("#submit_comment").on('click', function() {
+        var u_id = $("#comment_user_id").val();
+        var h_id = $("#comment_hotel_id").val();
+        var rate = $("#comment_user_rating").val();
+        var content = $("#comment_comment_content").val();
+
+        jQuery.post('/comments#create', {
+            comment: {user_id: u_id, hotel_id: h_id, user_rating: rate, comment_content:content}
+          }, function(data){
+                if (data.success == "true"){
+                  $("#comment_user_rating").val("");
+                  $("#comment_comment_content").val("");
+                  $("#comment_notice").html("<h5>Comment was succesfully added</h5>").fadeIn("slow");
+                  setInterval( function() {
+                  $("#comment_notice").fadeOut("slow");}, 2500);
+
+
+
+
+                }
+                  else
+                  $('#comment_notice').html(data.success + "<br />");
+              });
+          return false;
+        });
+    });
+<% end  %>

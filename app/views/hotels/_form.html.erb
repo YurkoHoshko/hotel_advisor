@@ -1,0 +1,63 @@
+<%= form_for @hotel, :html => { :class => 'form-horizontal', :multipart => 'true' } do |f| %>
+    <div style="float:left; padding: 10px; border:2px; margin:3px; width:420px; height:434px" class="well">
+    <dl class="dl-horizontal">
+
+  <dt><strong>Name:</strong></dt>
+  <dd><%= f.text_field :name, :class => 'text_field'%></dd></br>
+
+  <dt><strong>Star Rating:</strong></dt>
+
+  <dd><%= f.select :star_rating, ([['One star'  , 1, :style=>"background_image:assets/rails.png"], ['Two stars', 2], ['Three stars', 3], ['Four stars', 4], ['Five stars', 5]] ), :selected=>"3" %></dd>
+  </br></br>
+
+  <dt><strong>Price (per day):</strong></dt>
+  <dd><%= f.text_field :price, :class => 'text_field' %></dd>
+  </br>
+
+  <dt><strong>Breakfast included?:</strong></dt>
+  <dd><%= f.check_box :breakfast_included, :class => 'text_field' %></dd>
+  </br>
+
+  <dt><strong>Room description:</strong></dt>
+  <dd><%= f.text_area :room_description, :class => 'text_box' , :rows=>"7"%></dd></dl>
+  </br>
+</div>
+<div style="float:left; padding: 10px; border:2px; margin:3px; height:434px; width:420px" class="well">
+  <dl class="dl-horizontal">
+  <dt><strong>Country:</strong></dt>
+  <dd><%= f.text_field :country, :class => 'text_field' %></dd>
+  </br>
+
+  <dt><strong>State:</strong></dt>
+  <dd><%= f.text_field :state, :class => 'text_field' %></dd>
+   </br>
+
+  <dt><strong>City:</strong></dt>
+  <dd><%= f.text_field :city, :class => 'text_field' %></dd>
+   </br>
+
+   <dt><strong>Street:</strong></dt>
+  <dd><%= f.text_field :street, :class => 'text_field' %></dd>
+  </br>
+
+
+   <strong>Photo:</strong>
+    <small>Please add some photos to do it more pretty</small>
+   <%= f.fields_for :images do |image_field| %>
+   <%= image_field.file_field :photo %>
+   <% end %>
+</dl>
+
+
+
+  <div class="actions">
+      <%= f.submit :Create, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                hotels_path, :class => 'btn' %>
+      <%= link_to 'Back', :action=>:index, :class=>'btn bnt-primary' %>
+
+  </div>
+<% end %>
+</div>
+
+
