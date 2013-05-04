@@ -4,7 +4,7 @@ class Hotel < ActiveRecord::Base
   has_many :images, :dependent=>:destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  validates  :name, :star_rating, :breakfast_included, :room_description, :price, :country, :state, :city, :street, :presence=>true
+  validates  :name, :star_rating,:room_description, :price, :country, :state, :city, :street, :presence=>true
   validates :star_rating, :inclusion=>{:in=>1..5}
 
 

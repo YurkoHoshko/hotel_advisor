@@ -6,12 +6,15 @@ before_filter :authenticate_user!, :except=>[:index, :show, :welcome]
   def welcome
     @top_five = Hotel.top_five
     @hotels = Hotel.all
-
+    if !@hotels.presence
+      redirect_to :action=>:index
+    else
 
     respond_to do |format|
-      format.html {redirect_to hotels_path, :if=>!@top_five.presence}
       format.html {render :layout=>"landing_layout"}
       format.json { render json: @hotels }
+
+    end
 
     end
   end
