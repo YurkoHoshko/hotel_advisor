@@ -6,13 +6,13 @@ class Hotel < ActiveRecord::Base
 
   validates  :name, :star_rating,:room_description, :price, :country, :state, :city, :street, :presence=>true
   validates :star_rating, :inclusion=>{:in=>1..5}
+  validates :price,
+            :numericality => true,
+            :format => { :with => /^\d{1,7}(\.\d{0,2})?$/ }
+  validates_length_of :name, :country, :state, :city, :street, :within => 3..30
 
 
 
-def self.top_five
- top_rated_hotels= self.all.sort_by {|p| - p.average_rating}
- top_rated_hotels.first(5)
-end
 
 
 def total_rating
@@ -51,7 +51,10 @@ def average_user_rating_word(mark)
   end
 end
 
-def one_star
-  image_tag("assets/rails.png")
+
+
+def self.top_five
+ top_rated_hotels= self.all.sort_by {|p| - p.average_rating}
+ top_rated_hotels.first(5)
 end
 end

@@ -42,9 +42,6 @@ before_filter :authenticate_user!, :except=>[:index, :show, :welcome]
   # GET /hotels/new.json
   def new
     @hotel = Hotel.new
-    3.times {@hotel.images.build}
-
-
 
     respond_to do |format|
       format.html

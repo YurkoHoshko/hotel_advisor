@@ -3,10 +3,10 @@
 <div id="slides">
   <ul class="slides-container">
     <% @top_five.each do |hotel| %>
-      <%  hotel.images.each do |photo| %>
-       <% unless photo.nil? %>
 
-            <li><%= image_tag photo.photo.url(:landing) %>
+       <% unless hotel.images.first.nil? %>
+
+            <li><%= image_tag hotel.images.first.photo.url(:landing) %>
               <div class="scrollable">
               <div class="well " style="background-color: rgba(245, 245, 245, 0.5); height:55px">
                 <h3>Hotel Advisor is awesome service to describe and rate hotels.
@@ -33,7 +33,7 @@
           </div>
             </li>
         <% end %>
-      <% end %>
+
 
 
 

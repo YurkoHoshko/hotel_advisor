@@ -23,9 +23,17 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+end
+
+
 gem 'jquery-rails'
 gem "paperclip", '=2.7'
 gem "cocaine", '=0.3.2'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
