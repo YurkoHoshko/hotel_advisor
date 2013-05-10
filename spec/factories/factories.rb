@@ -1,4 +1,4 @@
-
+include ActionDispatch::TestProcess
 FactoryGirl.define do
 
   factory :hotel do
@@ -12,13 +12,20 @@ FactoryGirl.define do
     city "Cougar town"
     street "Main avenue"
     sequence(:name) { |i| "Hotel ##{ i }" }
+
   end
 
   factory :comment do
     user_rating Random.rand(1..5)
-    comment_content "Lorem ipsum"
+    comment_content "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
     user_id Random.rand(1..5)
     hotel
   end
+
+  factory :user do
+    sequence(:email) { |i| "sample##{ i }@example.com" }
+    password "password"
+  end
+
 
 end

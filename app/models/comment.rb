@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
 
   validates  :comment_content, :user_rating, :user_id, :hotel_id, :presence=>true
   validates :user_rating, :inclusion=>{:in=>1..5}
+  validates :comment_content, :length=>{:minimum=>15, :maximum=>150}
+
 
 
 

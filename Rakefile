@@ -5,3 +5,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 HotelAdvisor::Application.load_tasks
+
+# This defines your new spec task with a suppressed stack trace
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.fail_on_error = false
+end

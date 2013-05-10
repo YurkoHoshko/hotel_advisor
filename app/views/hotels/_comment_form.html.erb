@@ -13,7 +13,7 @@
     <%= f.select :user_rating, ([['Scary', 1], ['Bad', 2], ['Usual', 3], ['Good', 4], ['Awesome', 5]] ), :selected=>"3" %></br>
     <h5>Few more words about hotel</h5>
     <%= f.text_area :comment_content, :rows=>"5"%></br>
-    <%= f.label "Submit comment", :id=>"submit_comment", :class=>"btn btn-success", :style=>"align:center"  %></br>
+    <%= f.button "Submit comment", :id=>"submit_comment", :class=>"btn btn-success", :style=>"align:center"  %></br>
 
   <%end%>
 
