@@ -15,6 +15,7 @@ describe "User" do
       visit hotels_path
       @hotels.each do |hotel|
       page.should have_content(hotel.name)
+      save_and_open_page
       end
 
     end

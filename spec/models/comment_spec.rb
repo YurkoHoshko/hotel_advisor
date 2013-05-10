@@ -1,4 +1,4 @@
-equire 'spec_helper'
+require 'spec_helper'
 
 
 describe Comment do
@@ -31,14 +31,14 @@ describe Comment do
   it {should ensure_length_of(:comment_content).is_at_least(15).is_at_most(150)}
 
 #===========================assossiations tests===================================
-  it {should belongs_to(:user)}
-  it {should belongs_to(:hotel)}
+  it {should belong_to(:user)}
+  it {should belong_to(:hotel)}
 
 #================================model methods tests =================================
 
   it "should match user_rating to word" do
   @test_comment=FactoryGirl.create(:comment, :user_rating=>3)
-  @test_comment.user_rating_word.should == "usual"
+  @test_comment.user_rating_word(@test_comment.user_rating).should == "usual"
 end
 
 end
